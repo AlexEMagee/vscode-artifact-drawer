@@ -1,6 +1,6 @@
 {
-  "name": "artifact-library",
-  "displayName": "Artifact Library",
+  "name": "artifact-drawer",
+  "displayName": "Artifact Drawer",
   "description": "A tool for viewing and integrating code artifacts from a library.",
   "version": "0.0.1",
   "engines": {
@@ -12,10 +12,53 @@
   "activationEvents": [],
   "main": "./extension.js",
   "contributes": {
-    "commands": [{
-      "command": "artifact-library.helloWorld",
-      "title": "Hello World"
-    }]
+    "configuration": {
+      "title": "Artifact Drawer Settings",
+      "properties": {
+        "artifact-drawer.db-file": {
+          "type": "string",
+          "default": "",
+          "description": "The file to use for artifacts."
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "artifact-drawer.importArtifact",
+        "title": "Import Artifact",
+        "icon": "$(terminal-new)"
+      },
+      {
+        "command": "artifact-drawer.loadArtifactLibrary",
+        "title": "Load Artifact Library",
+        "icon": "$(refresh)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "artifact-drawer.loadArtifactLibrary",
+          "when": "view == artifacts",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "artifact-drawer.importArtifact",
+          "when": "view == artifacts && viewItem == artifact",
+          "group": "inline"
+        }
+      ]
+    },
+    "views": {
+      "explorer": [
+        {
+          "id": "artifacts",
+          "name": "Artifacts",
+          "icon": "images/icon.svg"
+        }
+      ]
+    }
   },
   "scripts": {
     "lint": "eslint .",
