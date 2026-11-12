@@ -1,8 +1,10 @@
 {
   "name": "artifact-drawer",
+  "publisher": "aem2create",
   "displayName": "Artifact Drawer",
   "description": "A tool for viewing and integrating code artifacts from a library.",
   "version": "0.0.1",
+  "repository": "github.com:AlexEMagee/vscode-artifact-drawer",
   "engines": {
     "vscode": "^1.146.0"
   },
