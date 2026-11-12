@@ -6,7 +6,7 @@ import ArtifactsListProvider from './ArtifactsListProvider.js';
  * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
-	let treeDataProvider = new ArtifactsListProvider(getDbFile())
+	let treeDataProvider = new ArtifactsListProvider(getDbFile(context))
 
 	vscode.window.createTreeView('artifacts', {
 		treeDataProvider: treeDataProvider
@@ -14,7 +14,7 @@ function activate(context) {
 
 	context.subscriptions.push(
 		vscode.commands.registerCommand('artifact-drawer.loadArtifactLibrary', function () {
-			treeDataProvider.initializeArtifactLibrary(getDbFile());
+			treeDataProvider.initializeArtifactLibrary(getDbFile(context));
 		}),
 		vscode.commands.registerCommand('artifact-drawer.importArtifact', function (item) {
 			item.placeAtCursor();
@@ -23,7 +23,7 @@ function activate(context) {
 
 }
 
-function getDbFile() {
+function getDbFile(context) {
 	let config = vscode.workspace.getConfiguration("artifact-drawer");
 	let customDbFile = config.get('db-file', '');
 	let dbFile;
