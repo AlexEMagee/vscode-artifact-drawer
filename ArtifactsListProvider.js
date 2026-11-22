@@ -1,5 +1,7 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
+import * as path from 'path';
+import { Library } from 'artifact-package';
 
 /**
  * @implements {vscode.TreeDataProvider<Dependency>}
@@ -51,6 +53,13 @@ export default class ArtifactsListProvider {
    * @param {string} dbFile
   */
   initializeArtifactLibrary(dbFile) {
+    fs.mkdirSync(path.dirname(dbFile), { recursive: true });
+    if(!fs.existsSync(dbFile)) {
+      fs.writeFileSync(dbFile, JSON.stringify({ schemaVersion: 1, categories: [] }), 'utf8');
+    }
+
+    const artifactLibrary = Library.fromJSON(fs.readFileSync(dbFile));
+
     let categories;
     if(!fs.existsSync(dbFile)) {
       categories = [];
@@ -60,12 +69,12 @@ export default class ArtifactsListProvider {
     }
     vscode.window.showInformationMessage(categories);
     this.artifactLibrary = [];
-    categories.forEach(category => {
+    artifactLibrary.getCategories().forEach(category => {
       let artifacts = [];
-      category.artifacts.forEach(artifact => {
-        artifacts.push(new Artifact(artifact.title, artifact.snippet))
+      artifactLibrary.getCategoryArtifacts(category).forEach(artifact => {
+        artifacts.push(new Artifact(artifact, artifactLibrary.getArtifact(category, artifact).snippet));
       });
-      this.artifactLibrary.push(new Category(category.title, artifacts));
+      this.artifactLibrary.push(new Category(category, artifacts));
     });
     this.refresh();
   }
