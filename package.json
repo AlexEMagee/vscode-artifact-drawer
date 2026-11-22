@@ -3,7 +3,8 @@
   "publisher": "aem2create",
   "displayName": "Artifact Drawer",
   "description": "A tool for viewing and integrating code artifacts from a library.",
-  "version": "0.0.1",
+  "version": "0.0.2",
+  "icon": "images/icon.png",
   "repository": "github.com:AlexEMagee/vscode-artifact-drawer",
   "engines": {
     "vscode": "^1.146.0"
@@ -65,7 +66,8 @@
   "scripts": {
     "lint": "eslint .",
     "pretest": "npm run lint",
-    "test": "vscode-test"
+    "test": "vscode-test",
+    "package": "vsce package"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.10",
