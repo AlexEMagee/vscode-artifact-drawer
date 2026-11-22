@@ -1,12 +1,26 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import ArtifactsListProvider from './ArtifactsListProvider.js';
+import { getDataFile } from 'vscode-extension-utilities';
+
+const config = {
+	dataFile: {
+		filename: "artifacts.json",
+		settingName: "db-file",
+		extensionName: "artifact-drawer"
+	}
+}
 
 /**
  * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
-	let treeDataProvider = new ArtifactsListProvider(getDbFile(context))
+	let treeDataProvider = new ArtifactsListProvider(getDataFile(
+		context,
+		config.dataFile.filename,
+		config.dataFile.settingName,
+		config.dataFile.extensionName
+	));
 
 	vscode.window.createTreeView('artifacts', {
 		treeDataProvider: treeDataProvider
@@ -14,25 +28,18 @@ function activate(context) {
 
 	context.subscriptions.push(
 		vscode.commands.registerCommand('artifact-drawer.loadArtifactLibrary', function () {
-			treeDataProvider.initializeArtifactLibrary(getDbFile(context));
+			treeDataProvider.initializeArtifactLibrary(getDataFile(
+				context,
+				config.dataFile.filename,
+				config.dataFile.settingName,
+				config.dataFile.extensionName
+			));
 		}),
 		vscode.commands.registerCommand('artifact-drawer.importArtifact', function (item) {
 			item.placeAtCursor();
 		})
 	);
 
-}
-
-function getDbFile(context) {
-	let config = vscode.workspace.getConfiguration("artifact-drawer");
-	let customDbFile = config.get('db-file', '');
-	let dbFile;
-	if(customDbFile == "") {
-		dbFile = path.join(context.globalStorageUri.fsPath, "artifacts.json");
-	} else {
-		dbFile = customDbFile;
-	}
-	return dbFile;
 }
 
 // This method is called when your extension is deactivated
