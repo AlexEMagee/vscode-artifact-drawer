@@ -98,6 +98,26 @@
             }
           }
         }
+      },
+      {
+        "name": "artifact-drawer_get_artifact_type",
+        "displayName": "Get Artifact Type",
+        "modelDescription": "Provides a type description of the specified artifact. This should be used to understand the artifact's role and format. This tool does not provide a usable code snippet.",
+        "canBeReferencedInPrompt": true,
+        "toolReferenceName": "artifactArtifactType",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "category": {
+              "type": "string",
+              "description": "category name"
+            },
+            "artifact": {
+              "type": "string",
+              "description": "artifact name"
+            }
+          }
+        }
       }
     ],
     "views": {
