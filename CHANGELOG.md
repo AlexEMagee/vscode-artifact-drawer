@@ -7,9 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.3] - 2026-11-24
+
 ### Added
 
 - Added `artifact-package` support for reading and organizing artifact libraries.
+- Added language model tools for listing categories and artifacts, retrieving artifact types, and retrieving snippets.
 
 ### Changed
 
