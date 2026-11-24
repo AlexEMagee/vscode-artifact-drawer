@@ -46,6 +46,9 @@ function activate(context) {
 	context.subscriptions.push(
 		vscode.lm.registerTool('artifact-drawer_get_artifacts_from_category', new GetArtifactsFromCategoryTool(treeDataProvider))
 	);
+	context.subscriptions.push(
+		vscode.lm.registerTool('artifact-drawer_get_artifact_snippet', new GetArtifactSnippetTool(treeDataProvider))
+	);
 }
 
 // This method is called when your extension is deactivated
@@ -85,6 +88,25 @@ class GetArtifactsFromCategoryTool {
 		const artifacts = this.provider.getArtifactsFromCategory(options.input.category);
 		return new vscode.LanguageModelToolResult([
 			new vscode.LanguageModelTextPart(JSON.stringify(artifacts))
+		]);
+	}
+}
+
+/**
+ * @implements {vscode.LanguageModelTool<object>}
+ */
+class GetArtifactSnippetTool {
+	/**
+	 * @param {ArtifactsListProvider} provider
+	 */
+	constructor(provider) {
+		this.provider = provider;
+	}
+
+	invoke(options) {
+		const artifact = this.provider.getArtifactSnippet(options.input.category, options.input.artifact);
+		return new vscode.LanguageModelToolResult([
+			new vscode.LanguageModelTextPart(artifact)
 		]);
 	}
 }

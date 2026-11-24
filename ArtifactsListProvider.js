@@ -58,6 +58,13 @@ export default class ArtifactsListProvider {
     return match ? match.artifacts.map(artifact => artifact.label) : [];
   }
 
+  getArtifactSnippet(category, artifact) {
+    const match_c = this.artifactLibrary.find(c => c.label === category);
+    if(!match_c) return null;
+    const match_a = match_c.artifacts.find(a => a.label === artifact);
+    return match_a ? match_a.snippet : null;
+  }
+
   /** 
    * @param {string} dbFile
   */

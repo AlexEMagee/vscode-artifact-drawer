@@ -78,6 +78,26 @@
             }
           }
         }
+      },
+      {
+        "name": "artifact-drawer_get_artifact_snippet",
+        "displayName": "Get Artifact Snippet",
+        "modelDescription": "Provides the usable code snippet from a specified artifact. This should be used to actually place code snippets in the user's project.",
+        "canBeReferencedInPrompt": true,
+        "toolReferenceName": "artifactArtifactSnippet",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "category": {
+              "type": "string",
+              "description": "category name"
+            },
+            "artifact": {
+              "type": "string",
+              "description": "artifact name"
+            }
+          }
+        }
       }
     ],
     "views": {
