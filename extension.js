@@ -40,10 +40,32 @@ function activate(context) {
 		})
 	);
 
+	context.subscriptions.push(
+		vscode.lm.registerTool('artifact-drawer_get_categories_list', new GetCategoriesTool(treeDataProvider))
+	);
 }
 
 // This method is called when your extension is deactivated
 function deactivate() {}
+
+/**
+ * @implements {vscode.LanguageModelTool<object>}
+ */
+class GetCategoriesTool {
+	/**
+	 * @param {ArtifactsListProvider} provider
+	 */
+	constructor(provider) {
+		this.provider = provider;
+	}
+
+	invoke() {
+		const categories = this.provider.getCategoryNames();
+		return new vscode.LanguageModelToolResult([
+			new vscode.LanguageModelTextPart(JSON.stringify(categories))
+		]);
+	}
+}
 
 export {
 	activate,

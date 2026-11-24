@@ -3,7 +3,7 @@
   "publisher": "aem2create",
   "displayName": "Artifact Drawer",
   "description": "A tool for viewing and integrating code artifacts from a library.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "icon": "images/icon.png",
   "repository": "github.com:AlexEMagee/vscode-artifact-drawer",
   "engines": {
@@ -12,7 +12,9 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onLanguageModelTool:artifact-drawer_get_categories_list"
+  ],
   "main": "./extension.js",
   "contributes": {
     "configuration": {
@@ -53,6 +55,15 @@
         }
       ]
     },
+    "languageModelTools": [
+      {
+        "name": "artifact-drawer_get_categories_list",
+        "displayName": "Get Categories List",
+        "modelDescription": "Provides a list of category names that are available in the current library. This should be used to understand what is available to insert into a project and understand the structure of the library. This tool does not provide a list of artifacts available in each category and does not provide any usable code snippets.",
+        "canBeReferencedInPrompt": true,
+        "toolReferenceName": "artifactCategories"
+      }
+    ],
     "views": {
       "explorer": [
         {

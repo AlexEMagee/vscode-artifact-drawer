@@ -49,6 +49,10 @@ export default class ArtifactsListProvider {
     }
   }
 
+  getCategoryNames() {
+    return this.artifactLibrary.map(category => category.label);
+  }
+
   /** 
    * @param {string} dbFile
   */
