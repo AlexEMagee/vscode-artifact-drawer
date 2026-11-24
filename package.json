@@ -62,6 +62,22 @@
         "modelDescription": "Provides a list of category names that are available in the current library. This should be used to understand what is available to insert into a project and understand the structure of the library. This tool does not provide a list of artifacts available in each category and does not provide any usable code snippets.",
         "canBeReferencedInPrompt": true,
         "toolReferenceName": "artifactCategories"
+      },
+      {
+        "name": "artifact-drawer_get_artifacts_from_category",
+        "displayName": "Get Artifacts List",
+        "modelDescription": "Provides a list of artifact names that are available in the provided category. This should be used to understand what is available to insert into a project and understand the structure of the category. This tool does not provide any usable code snippets.",
+        "canBeReferencedInPrompt": true,
+        "toolReferenceName": "artifactArtifactsFromCategory",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "category": {
+              "type": "string",
+              "description": "category name"
+            }
+          }
+        }
       }
     ],
     "views": {
